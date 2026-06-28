@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seda & Tijera · Estética capilar</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    /* ============================================================
+       CSS VARIABLES - PALETA PROFESIONAL CON CONTRASTE MEJORADO
+       ============================================================ */
+    :root {
+      /* Fondos - con más profundidad */
+      --bg-body: #e8e4e0;
+      --bg-glass: rgba(255, 255, 255, 0.35);
+      --bg-glass-dark: rgba(20, 20, 20, 0.7);
+      --bg-card: rgba(255, 255, 255, 0.40);
+      --bg-card-solid: #ffffff;
+      --bg-input: rgba(255, 255, 255, 0.60);
+      
+      /* Bordes y sombras - más definidos */
+      --border-glass: rgba(255, 255, 255, 0.30);
+      --border-glass-dark: rgba(0, 0, 0, 0.05);
+      --shadow-glass: 
+        0 20px 60px rgba(0, 0, 0, 0.08),
+        0 8px 24px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      --shadow-glass-hover: 
+        0 30px 80px rgba(0, 0, 0, 0.12),
+        0 12px 32px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6);
+      --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.5);
+      --shadow-inner-dark: inset 0 1px 0 rgba(255, 255, 255, 0.08);
+      --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.10);
+      --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.15);
+      
+      /* Textos - más contraste */
+      --text-primary: #1a1a1a;
+      --text-secondary: #3a3a3a;
+      --text-muted: #5a5a5a;
+      --text-light: #8a8a8a;
+      
+      /* Colores de acento - grises con más presencia */
+      --accent: #4a4a4a;
+      --accent-light: #6a6a6a;
+      --accent-dark: #2a2a2a;
+      --accent-glow: rgba(74, 74, 74, 0.20);
+      
+      /* Botones */
+      --btn-primary-bg: #1a1a1a;
+      --btn-primary-text: #ffffff;
+      --btn-secondary-bg: rgba(200, 200, 200, 0.40);
+      --btn-secondary-text: #1a1a1a;
+      
+      /* Badges */
+      --badge-bg: rgba(200, 200, 200, 0.35);
+      --badge-text: #1a1a1a;
+      
+      /* Toast */
+      --toast-bg: rgba(26, 26, 26, 0.95);
+      --toast-text: #ffffff;
+      
+      /* Blur */
+      --blur: blur(20px);
+      --transition: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-fast: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ===== MODO OSCURO - Más contraste y profundidad ===== */
+    [data-theme="dark"] {
+      --bg-body: #080808;
+      --bg-glass: rgba(20, 20, 20, 0.55);
+      --bg-glass-dark: rgba(8, 8, 8, 0.8);
+      --bg-card: rgba(30, 30, 30, 0.50);
+      --bg-card-solid: #1a1a1a;
+      --bg-input: rgba(40, 40, 40, 0.60);
+      
+      --border-glass: rgba(255, 255, 255, 0.08);
+      --border-glass-dark: rgba(255, 255, 255, 0.02);
+      --shadow-glass: 
+        0 20px 60px rgba(0, 0, 0, 0.7),
+        0 8px 24px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      --shadow-glass-hover: 
+        0 30px 80px rgba(0, 0, 0, 0.9),
+        0 12px 32px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      --shadow-inner: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+      --shadow-inner-dark: inset 0 1px 0 rgba(255, 255, 255, 0.02);
+      --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --shadow-deep: 0 20px 60px rgba(0, 0, 0, 0.6);
+      
+      --text-primary: #f0f0f0;
+      --text-secondary: #c8c8c8;
+      --text-muted: #888888;
+      --text-light: #666666;
+      
+      --accent: #8a8a8a;
+      --accent-light: #aaaaaa;
+      --accent-dark: #5a5a5a;
+      --accent-glow: rgba(138, 138, 138, 0.20);
+      
+      --btn-primary-bg: #f0f0f0;
+      --btn-primary-text: #080808;
+      --btn-secondary-bg: rgba(60, 60, 60, 0.40);
+      --btn-secondary-text: #f0f0f0;
+      
+      --badge-bg: rgba(60, 60, 60, 0.40);
+      --badge-text: #f0f0f0;
+      
+      --toast-bg: rgba(240, 240, 240, 0.95);
+      --toast-text: #080808;
+    }
+
+    /* ============================================================
+       RESET & BASE
+       ============================================================ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      background: var(--bg-body);
+      font-family: 'Inter', sans-serif;
+      color: var(--text-primary);
+      padding: 1.8rem 1.2rem;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background var(--transition), color var(--transition);
+      position: relative;
+    }
+
+    /* Fondo decorativo con burbujas - más sutil */
+    body::before {
+      content: '';
+      position: fixed;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(150, 150, 150, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(100, 100, 100, 0.03) 0%, transparent 50%);
+      animation: bgFloat 20s ease-in-out infinite alternate;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes bgFloat {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      100% { transform: translate(-2%, 2%) rotate(2deg); }
+    }
+
+    .container {
+      max-width: 1440px;
+      width: 100%;
+      background: var(--bg-glass);
+      backdrop-filter: var(--blur);
+      -webkit-backdrop-filter: var(--blur);
+      border-radius: 56px;
+      padding: 2.2rem 2.5rem;
+      box-shadow: var(--shadow-glass);
+      border: 1px solid var(--border-glass);
+      transition: all var(--transition);
+      animation: floatIn 1s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+
+    /* Efecto Liquid Glass - brillo superior mejorado */
+    .container::before {
+      content: '';
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 220%;
+      height: 220%;
+      background: 
+        radial-gradient(circle at 30% 10%, rgba(255, 255, 255, 0.06) 0%, transparent 50%),
+        radial-gradient(circle at 70% 90%, rgba(255, 255, 255, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.02) 0%, transparent 60%);
+      pointer-events: none;
+      animation: glassShine 10s ease-in-out infinite alternate;
+    }
+
+    @keyframes glassShine {
+      0% { opacity: 0.6; transform: translate(-5%, -5%) rotate(-2deg) scale(1); }
+      100% { opacity: 1; transform: translate(5%, 5%) rotate(2deg) scale(1.1); }
+    }
+
+    /* Línea de brillo adicional en la parte superior */
+    .container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      width: 80%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+      pointer-events: none;
+    }
+
+    @keyframes floatIn {
+      0% { opacity: 0; transform: translateY(50px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ============================================================
+       SCROLL
+       ============================================================ */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: rgba(200, 200, 200, 0.1); border-radius: 20px; }
+    ::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 20px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+
+    /* ============================================================
+       HEADER
+       ============================================================ */
+    .brand {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 2.5rem;
+      gap: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-left i {
+      font-size: 2.6rem;
+      color: var(--accent);
+      filter: drop-shadow(0 4px 16px var(--accent-glow));
+      transition: transform 0.4s ease;
+      animation: iconPulse 4s ease-in-out infinite;
+    }
+
+    @keyframes iconPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .brand-left i:hover {
+      transform: rotate(-8deg) scale(1.08);
+      animation-play-state: paused;
+    }
+
+    .brand h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.4rem;
+      letter-spacing: -0.02em;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .brand .sub {
+      font-weight: 400;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      letter-spacing: 3px;
+      border-left: 2px solid var(--border-glass);
+      padding-left: 14px;
+      margin-left: 6px;
+      text-transform: uppercase;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .theme-toggle {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-glass);
+      border-radius: 60px;
+      padding: 0.5rem 1.2rem;
+      font-size: 0.85rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: var(--shadow-inner);
+      font-weight: 500;
+    }
+
+    .theme-toggle:hover {
+      background: var(--border-glass);
+      transform: scale(1.02) translateY(-2px);
+      box-shadow: var(--shadow-glass-hover);
+    }
+
+    .theme-toggle i {
+      transition: transform 0.4s ease;
+    }
+
+    .theme-toggle:hover i {
+      transform: rotate(30deg);
+    }
+
+    .stats-panel {
+      display: flex;
+      gap: 1.5rem 2.5rem;
+      flex-wrap: wrap;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      transition: all var(--transition-fast);
+    }
+
+    .stats-panel:hover {
+      box-shadow: var(--shadow-glass-hover);
+    }
+
+    .stats-panel span {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: all var(--transition-fast);
+    }
+
+    .stats-panel span:hover {
+      color: var(--text-primary);
+      transform: translateY(-1px);
+    }
+
+    .stats-panel i {
+      color: var(--accent);
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .stats-panel span:hover i {
+      transform: scale(1.15);
+    }
+
+    .stats-panel strong {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+    }
+
+    /* ============================================================
+       TABS
+       ============================================================ */
+    .tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border-radius: 60px;
+      padding: 0.4rem;
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      position: relative;
+      z-index: 1;
+    }
+
+    .tab-btn {
+      flex: 1;
+      padding: 0.7rem 1.5rem;
+      border: none;
+      background: transparent;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+    }
+
+    .tab-btn::after {
+      content: '';
+      position: absolute;
+      bottom: 4px;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.4s ease;
+      transform: translateX(-50%);
+      border-radius: 2px;
+    }
+
+    .tab-btn:hover::after {
+      width: 60%;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .tab-btn.active {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      box-shadow: 0 6px 24px var(--accent-glow);
+    }
+
+    .tab-btn.active::after {
+      width: 0;
+    }
+
+    .tab-btn i {
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .tab-btn:hover i {
+      transform: scale(1.1) rotate(-5deg);
+    }
+
+    .tab-content {
+      display: none;
+      animation: fadeTab 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .tab-content.active { display: block; }
+
+    @keyframes fadeTab {
+      0% { opacity: 0; transform: translateY(16px) scale(0.98); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* ============================================================
+       FORMULARIOS - ESTILO GLASS MEJORADO
+       ============================================================ */
+    .form-grid,
+    .appointment-form {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.4rem 1.8rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      padding: 2rem 2.2rem;
+      border-radius: 40px;
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      margin-bottom: 2.8rem;
+      transition: all var(--transition-fast);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-grid:hover,
+    .appointment-form:hover {
+      box-shadow: var(--shadow-glass-hover);
+      transform: translateY(-2px);
+    }
+
+    .appointment-form {
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    }
+
+    .form-grid::after,
+    .appointment-form::after {
+      content: '';
+      position: absolute;
+      top: -40%;
+      right: -20%;
+      width: 50%;
+      height: 50%;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
+      pointer-events: none;
+      opacity: 0.15;
+      border-radius: 50%;
+      animation: glowFloat 8s ease-in-out infinite alternate;
+    }
+
+    @keyframes glowFloat {
+      0% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+      100% { transform: translate(-10%, -10%) scale(1.2); opacity: 0.25; }
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .form-group label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: color 0.3s ease;
+    }
+
+    .form-group:focus-within label {
+      color: var(--text-primary);
+    }
+
+    .form-group label i {
+      color: var(--accent);
+      font-size: 0.8rem;
+      width: 18px;
+      transition: transform 0.3s ease;
+    }
+
+    .form-group:focus-within label i {
+      transform: scale(1.1);
+    }
+
+    .form-group input,
+    .form-group select {
+      background: var(--bg-input);
+      backdrop-filter: blur(8px);
+      border: 1.5px solid var(--border-glass);
+      border-radius: 30px;
+      padding: 0.75rem 1.2rem;
+      font-size: 0.9rem;
+      font-family: 'Inter', sans-serif;
+      transition: all var(--transition-fast);
+      outline: none;
+      color: var(--text-primary);
+      box-shadow: var(--shadow-inner);
+    }
+
+    [data-theme="dark"] .form-group input,
+    [data-theme="dark"] .form-group select {
+      background: var(--bg-input);
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow-inner), var(--shadow-elevated);
+      transform: translateY(-2px) scale(1.01);
+    }
+
+    .form-group input::placeholder {
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    .form-group input:focus::placeholder {
+      opacity: 0.5;
+    }
+
+    .form-actions {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+      grid-column: 1 / -1;
+      justify-content: flex-end;
+      margin-top: 10px;
+    }
+
+    /* ============================================================
+       BOTONES PREMIUM MEJORADOS
+       ============================================================ */
+    .btn {
+      border: none;
+      padding: 0.75rem 2.2rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      letter-spacing: 0.4px;
+      font-family: 'Inter', sans-serif;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .btn::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .btn i {
+      font-size: 1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .btn:hover i {
+      transform: scale(1.15) rotate(-5deg);
+    }
+
+    .btn-primary {
+      background: var(--btn-primary-bg);
+      color: var(--btn-primary-text);
+      box-shadow: 0 4px 20px var(--accent-glow), var(--shadow-elevated);
+    }
+
+    .btn-primary:hover {
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: 0 12px 36px var(--accent-glow), var(--shadow-deep);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.97);
+    }
+
+    .btn-secondary {
+      background: var(--btn-secondary-bg);
+      color: var(--btn-secondary-text);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+    }
+
+    .btn-secondary:hover {
+      transform: scale(1.03) translateY(-2px);
+      background: rgba(200, 200, 200, 0.25);
+      box-shadow: var(--shadow-glass-hover);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--border-glass);
+      color: var(--text-secondary);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-inner);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-card);
+      border-color: var(--accent);
+      transform: scale(1.03) translateY(-2px);
+      box-shadow: var(--shadow-glass-hover);
+    }
+
+    .btn-success {
+      background: #2d7a5a;
+      color: white;
+      box-shadow: 0 4px 20px rgba(45, 122, 90, 0.25), var(--shadow-elevated);
+    }
+
+    .btn-success:hover {
+      background: #236a4a;
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: 0 8px 32px rgba(45, 122, 90, 0.35), var(--shadow-deep);
+    }
+
+    .btn-whatsapp {
+      background: #25D366;
+      color: white;
+      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.25), var(--shadow-elevated);
+    }
+
+    .btn-whatsapp:hover {
+      background: #1da851;
+      transform: scale(1.03) translateY(-3px);
+      box-shadow: 0 8px 32px rgba(37, 211, 102, 0.35), var(--shadow-deep);
+    }
+
+    /* ============================================================
+       ESTILISTA BADGE
+       ============================================================ */
+    .estilista-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--accent-glow);
+      padding: 0.5rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+      border: 1px solid var(--border-glass);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      transition: all var(--transition-fast);
+      animation: badgePulse 3s ease-in-out infinite;
+    }
+
+    @keyframes badgePulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.85; }
+    }
+
+    .estilista-badge i {
+      color: var(--accent);
+      animation: iconSpin 6s linear infinite;
+    }
+
+    @keyframes iconSpin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* ============================================================
+       TABLAS MEJORADAS
+       ============================================================ */
+    .table-wrap {
+      border-radius: 32px;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-glass);
+      overflow-x: auto;
+      padding: 0.1rem 0;
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      transition: all var(--transition-fast);
+    }
+
+    .table-wrap:hover {
+      box-shadow: var(--shadow-glass-hover);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+      min-width: 1000px;
+    }
+
+    th {
+      text-align: left;
+      padding: 1.2rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.7rem;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      border-bottom: 2px solid var(--border-glass);
+      cursor: pointer;
+      user-select: none;
+      transition: all var(--transition-fast);
+      position: relative;
+    }
+
+    th::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: all 0.4s ease;
+      transform: translateX(-50%);
+    }
+
+    th:hover::after {
+      width: 80%;
+    }
+
+    th:hover {
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-primary);
+    }
+
+    th i {
+      margin-left: 6px;
+      font-size: 0.7rem;
+      color: var(--accent);
+      transition: transform 0.3s ease;
+    }
+
+    th:hover i {
+      transform: rotate(180deg);
+    }
+
+    td {
+      padding: 1rem 1rem;
+      border-bottom: 1px solid var(--border-glass);
+      vertical-align: middle;
+      background: rgba(255, 255, 255, 0.02);
+      transition: background 0.3s ease;
+    }
+
+    tr:last-child td { border-bottom: none; }
+
+    tr {
+      transition: all 0.3s ease;
+    }
+
+    tr:hover td {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* ============================================================
+       BADGES MEJORADOS
+       ============================================================ */
+    .badge {
+      display: inline-block;
+      padding: 0.25rem 0.9rem;
+      border-radius: 60px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      background: var(--badge-bg);
+      color: var(--badge-text);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border-glass);
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-inner);
+    }
+
+    .badge:hover {
+      transform: scale(1.05);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .badge.miembro-actual { background: rgba(180, 200, 180, 0.40); color: #1a3a2a; border-color: rgba(180, 200, 180, 0.30); }
+    .badge.ex-miembro { background: rgba(200, 180, 160, 0.40); color: #4a3a2a; border-color: rgba(200, 180, 160, 0.30); }
+    .badge.promo-yes { background: rgba(160, 180, 200, 0.40); color: #1a2a4a; border-color: rgba(160, 180, 200, 0.30); }
+    .badge.promo-no { background: var(--badge-bg); color: var(--badge-text); border-color: var(--border-glass); }
+    .badge.estado-pendiente { background: rgba(200, 180, 120, 0.40); color: #4a3a0a; border-color: rgba(200, 180, 120, 0.30); }
+    .badge.estado-realizada { background: rgba(160, 200, 180, 0.40); color: #0a3a2a; border-color: rgba(160, 200, 180, 0.30); }
+    .badge.estado-cancelada { background: rgba(200, 160, 150, 0.40); color: #4a1a0a; border-color: rgba(200, 160, 150, 0.30); }
+
+    [data-theme="dark"] .badge.miembro-actual { background: rgba(60, 120, 80, 0.35); color: #a0d0b0; border-color: rgba(60, 120, 80, 0.20); }
+    [data-theme="dark"] .badge.ex-miembro { background: rgba(120, 80, 60, 0.35); color: #d0b0a0; border-color: rgba(120, 80, 60, 0.20); }
+    [data-theme="dark"] .badge.promo-yes { background: rgba(60, 80, 140, 0.35); color: #a0b0d0; border-color: rgba(60, 80, 140, 0.20); }
+    [data-theme="dark"] .badge.estado-pendiente { background: rgba(120, 100, 40, 0.35); color: #d0c080; border-color: rgba(120, 100, 40, 0.20); }
+    [data-theme="dark"] .badge.estado-realizada { background: rgba(40, 120, 80, 0.35); color: #80d0a0; border-color: rgba(40, 120, 80, 0.20); }
+    [data-theme="dark"] .badge.estado-cancelada { background: rgba(120, 40, 40, 0.35); color: #d08070; border-color: rgba(120, 40, 40, 0.20); }
+
+    /* ============================================================
+       ACCIONES EN TABLAS
+       ============================================================ */
+    .acciones {
+      display: flex;
+      gap: 6px;
+      justify-content: center;
+    }
+
+    .acciones button {
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 6px 10px;
+      border-radius: 40px;
+      transition: all var(--transition-fast);
+    }
+
+    .acciones button:hover {
+      background: var(--border-glass);
+      color: var(--text-primary);
+      transform: scale(1.15) rotate(-5deg);
+      box-shadow: var(--shadow-elevated);
+    }
+
+    .acciones button:active {
+      transform: scale(0.9);
+    }
+
+    /* ============================================================
+       TOOLBAR
+       ============================================================ */
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border: 1.5px solid var(--border-glass);
+      border-radius: 60px;
+      padding: 0.2rem 1.2rem;
+      flex: 1 1 250px;
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+    }
+
+    .search-box:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px var(--accent-glow), var(--shadow-inner), var(--shadow-elevated);
+      transform: translateY(-2px);
+    }
+
+    .search-box i {
+      color: var(--text-muted);
+      margin-right: 10px;
+      transition: color 0.3s ease;
+    }
+
+    .search-box:focus-within i {
+      color: var(--accent);
+    }
+
+    .search-box input {
+      border: none;
+      background: transparent;
+      padding: 0.7rem 0;
+      width: 100%;
+      font-size: 0.9rem;
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    .search-box input::placeholder {
+      color: var(--text-light);
+      font-weight: 300;
+    }
+
+    /* ============================================================
+       PAGINACIÓN
+       ============================================================ */
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .pagination button {
+      background: var(--bg-card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border-glass);
+      border-radius: 30px;
+      padding: 0.4rem 1.2rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+      color: var(--text-primary);
+      transition: all var(--transition-fast);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      font-weight: 500;
+    }
+
+    .pagination button:hover:not(:disabled) {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 24px var(--accent-glow), var(--shadow-deep);
+    }
+
+    .pagination button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .pagination .page-info {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      padding: 0 0.8rem;
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       ESTADÍSTICAS
+       ============================================================ */
+    .stats-extra {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem 3.5rem;
+      margin: 1.8rem 0 1rem;
+      padding: 0.8rem 2rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border-radius: 40px;
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      transition: all var(--transition-fast);
+    }
+
+    .stats-extra:hover {
+      box-shadow: var(--shadow-glass-hover);
+      transform: translateY(-2px);
+    }
+
+    .stats-extra div {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      transition: all 0.3s ease;
+    }
+
+    .stats-extra div:hover {
+      color: var(--text-primary);
+      transform: scale(1.02);
+    }
+
+    .stats-extra strong {
+      font-weight: 700;
+      color: var(--text-primary);
+      font-size: 1.2rem;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .stats-extra i {
+      color: var(--accent);
+      font-size: 1.1rem;
+    }
+
+    /* ============================================================
+       GRÁFICO
+       ============================================================ */
+    .chart-container {
+      margin: 2rem 0 0;
+      padding: 1.8rem;
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      border-radius: 40px;
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      transition: all var(--transition-fast);
+    }
+
+    .chart-container:hover {
+      box-shadow: var(--shadow-glass-hover);
+      transform: translateY(-2px);
+    }
+
+    .chart-container canvas {
+      max-height: 250px;
+      max-width: 100%;
+    }
+
+    /* ============================================================
+       TOAST MEJORADO
+       ============================================================ */
+    .toast {
+      position: fixed;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(30px);
+      background: var(--toast-bg);
+      color: var(--toast-text);
+      padding: 0.9rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      box-shadow: var(--shadow-glass), 0 10px 40px rgba(0, 0, 0, 0.2);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    /* ============================================================
+       CLIENTE NUEVO - FIELDS
+       ============================================================ */
+    .new-client-fields {
+      display: none;
+      grid-column: 1 / -1;
+      padding: 1.2rem 0 0.5rem;
+      border-top: 1px solid var(--border-glass);
+      margin-top: 0.5rem;
+      animation: slideDown 0.4s ease;
+    }
+
+    .new-client-fields.visible {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+
+    @keyframes slideDown {
+      0% { opacity: 0; transform: translateY(-10px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ============================================================
+       EMPTY MESSAGE
+       ============================================================ */
+    .empty-message {
+      text-align: center;
+      padding: 3.5rem 1rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+    }
+
+    .empty-message i {
+      margin-right: 14px;
+      color: var(--accent);
+      font-size: 1.2rem;
+      opacity: 0.5;
+    }
+
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
+    @media (max-width: 800px) {
+      .container { padding: 1.5rem; }
+      .brand { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .stats-panel { width: 100%; justify-content: space-around; }
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .appointment-form { grid-template-columns: 1fr 1fr; }
+      .header-controls { width: 100%; justify-content: flex-start; }
+      .tabs { flex-direction: column; border-radius: 30px; }
+      .tab-btn { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .form-grid { grid-template-columns: 1fr; }
+      .appointment-form { grid-template-columns: 1fr; }
+      .brand h1 { font-size: 2rem; }
+      table { min-width: 600px; }
+      .stats-extra { flex-direction: column; gap: 0.5rem; padding: 0.8rem 1.2rem; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+      .search-box { flex: 1; }
+      .appointment-form .client-select-group { flex-direction: column; }
+      .container { padding: 1rem; border-radius: 32px; }
+    }
+
+    /* ============================================================
+       ANIMACIONES DE FILAS
+       ============================================================ */
+    .fade-row {
+      animation: rowPop 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes rowPop {
+      0% { opacity: 0; transform: scale(0.97) translateY(8px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* ============================================================
+       LIQUID GLASS - Efectos extra mejorados
+       ============================================================ */
+    .glass-morph {
+      background: var(--bg-card);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border-glass);
+      box-shadow: var(--shadow-inner), var(--shadow-elevated);
+      border-radius: 40px;
+      transition: all var(--transition-fast);
+    }
+
+    .glass-morph:hover {
+      box-shadow: var(--shadow-glass-hover);
+      transform: translateY(-3px);
+    }
+  </style>
+</head>
+<body>
+<div class="container" id="app" role="main" aria-label="Gestión de clientes y citas Seda & Tijera">
+
+  <!-- Toast -->
+  <div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+  <!-- Header -->
+  <header class="brand">
+    <div class="brand-left">
+      <i class="fas fa-cut" aria-hidden="true"></i>
+      <div>
+        <h1>Seda & Tijera</h1>
+        <div class="sub">ESTÉTICA CAPILAR · 3 SUCURSALES</div>
+      </div>
+    </div>
+    <div class="header-controls">
+      <button class="theme-toggle" id="themeToggle" aria-label="Alternar modo oscuro">
+        <i class="fas fa-moon"></i> <span>Modo oscuro</span>
+      </button>
+      <div class="stats-panel">
+        <span><i class="fas fa-user-friends" aria-hidden="true"></i> Clientes: <strong id="clientCount">0</strong></span>
+        <span><i class="fas fa-calendar-check" aria-hidden="true"></i> Citas: <strong id="appointmentCount">0</strong></span>
+        <span><i class="fas fa-store-alt" aria-hidden="true"></i> Sucursales: <strong>3</strong></span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Tabs -->
+  <div class="tabs" role="tablist">
+    <button class="tab-btn active" data-tab="clientes" role="tab"><i class="fas fa-users"></i> Clientes</button>
+    <button class="tab-btn" data-tab="citas" role="tab"><i class="fas fa-calendar-plus"></i> Citas</button>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB: CLIENTES -->
+  <!-- ============================================ -->
+  <div id="tabClientes" class="tab-content active" role="tabpanel">
+    <!-- Formulario de clientes -->
+    <div class="form-grid" id="formularioClientes" aria-label="Formulario de cliente">
+      <div class="form-group">
+        <label for="nombre"><i class="fas fa-user" aria-hidden="true"></i> Nombre</label>
+        <input type="text" id="nombre" placeholder="Ej. Valentina Díaz" autofocus required aria-required="true" />
+      </div>
+      <div class="form-group">
+        <label for="edad"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Edad</label>
+        <input type="number" id="edad" placeholder="25" min="1" max="120" required aria-required="true" />
+      </div>
+      <div class="form-group">
+        <label for="servicio"><i class="fas fa-scissors" aria-hidden="true"></i> Servicio</label>
+        <input type="text" id="servicio" placeholder="Corte, color, alisado..." required aria-required="true" />
+      </div>
+      <div class="form-group">
+        <label for="fechaInicio"><i class="fas fa-calendar-check" aria-hidden="true"></i> Cliente desde</label>
+        <input type="date" id="fechaInicio" />
+      </div>
+      <div class="form-group">
+        <label for="membresia"><i class="fas fa-id-card" aria-hidden="true"></i> Membresía</label>
+        <select id="membresia">
+          <option value="miembro actual">Miembro actual</option>
+          <option value="fue miembro anteriormente">Fue miembro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="tipoPago"><i class="fas fa-credit-card" aria-hidden="true"></i> Tipo pago</label>
+        <select id="tipoPago">
+          <option value="Efectivo">Efectivo</option>
+          <option value="Tarjeta débito">Tarjeta débito</option>
+          <option value="Tarjeta crédito">Tarjeta crédito</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="Mercado Pago">Mercado Pago</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sucursalCliente"><i class="fas fa-store" aria-hidden="true"></i> Sucursal</label>
+        <select id="sucursalCliente">
+          <option value="Centro">Centro</option>
+          <option value="Norte">Norte</option>
+          <option value="Sur">Sur</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="frecuencia"><i class="fas fa-clock" aria-hidden="true"></i> Frecuencia</label>
+        <select id="frecuencia">
+          <option value="Semanal">Semanal</option>
+          <option value="Quincenal">Quincenal</option>
+          <option value="Mensual">Mensual</option>
+          <option value="Esporádico">Esporádico</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="promociones"><i class="fas fa-tag" aria-hidden="true"></i> Promociones</label>
+        <select id="promociones">
+          <option value="Sí, aprovechó">Sí, aprovechó</option>
+          <option value="No ha utilizado">No ha utilizado</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="referido"><i class="fas fa-user-plus" aria-hidden="true"></i> Referido</label>
+        <input type="text" id="referido" placeholder="Nombre o 'Ninguno'" />
+      </div>
+      <div class="form-group">
+        <label for="monto"><i class="fas fa-dollar-sign" aria-hidden="true"></i> Monto (MX$)</label>
+        <input type="number" id="monto" placeholder="0.00" min="0" step="0.01" />
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="agregarBtn"><i class="fas fa-plus-circle" aria-hidden="true"></i> <span>Agregar</span></button>
+        <button class="btn btn-secondary" id="limpiarBtn"><i class="fas fa-undo-alt" aria-hidden="true"></i> Limpiar</button>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div class="search-box" role="search">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input type="text" id="searchInput" placeholder="Buscar clientes..." aria-label="Buscar clientes" />
+      </div>
+      <div style="display:flex; gap: 10px; flex-wrap:wrap;">
+        <button class="btn btn-outline" id="exportCsvBtn"><i class="fas fa-file-csv" aria-hidden="true"></i> Exportar CSV</button>
+        <button class="btn btn-outline" id="resetEjemploBtn"><i class="fas fa-database" aria-hidden="true"></i> Cargar ejemplos</button>
+      </div>
+    </div>
+
+    <!-- Tabla de clientes -->
+    <div class="table-wrap" role="table" aria-label="Lista de clientes">
+      <table>
+        <thead>
+          <tr>
+            <th data-col="nombre">Nombre <i class="fas fa-sort"></i></th>
+            <th data-col="edad">Edad <i class="fas fa-sort"></i></th>
+            <th data-col="servicio">Servicio <i class="fas fa-sort"></i></th>
+            <th data-col="fechaInicio">Desde <i class="fas fa-sort"></i></th>
+            <th data-col="membresia">Membresía <i class="fas fa-sort"></i></th>
+            <th data-col="tipoPago">Pago <i class="fas fa-sort"></i></th>
+            <th data-col="sucursal">Sucursal <i class="fas fa-sort"></i></th>
+            <th data-col="frecuencia">Frecuencia <i class="fas fa-sort"></i></th>
+            <th data-col="promociones">Promo <i class="fas fa-sort"></i></th>
+            <th data-col="referido">Referido <i class="fas fa-sort"></i></th>
+            <th data-col="monto">Monto <i class="fas fa-sort"></i></th>
+            <th style="text-align:center;">Acción</th>
+          </tr>
+        </thead>
+        <tbody id="tablaBodyClientes">
+          <tr><td colspan="12" class="empty-message"><i class="fas fa-spa" aria-hidden="true"></i> Aún no hay clientes registrados</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación clientes -->
+    <div class="pagination" id="paginationClientes">
+      <button id="prevPageClientes" disabled><i class="fas fa-chevron-left"></i> Anterior</button>
+      <span class="page-info" id="pageInfoClientes">Página 1 de 1</span>
+      <button id="nextPageClientes" disabled>Siguiente <i class="fas fa-chevron-right"></i></button>
+    </div>
+
+    <!-- Estadísticas extra -->
+    <div class="stats-extra" id="statsExtra">
+      <div><i class="fas fa-users" aria-hidden="true"></i> Total: <strong id="totalClientes">0</strong></div>
+      <div><i class="fas fa-calendar-alt" aria-hidden="true"></i> Edad promedio: <strong id="promEdad">0</strong> años</div>
+      <div><i class="fas fa-money-bill-wave" aria-hidden="true"></i> Ingresos totales: <strong id="totalIngresos">$0.00</strong></div>
+    </div>
+
+    <!-- Gráfico -->
+    <div class="chart-container">
+      <canvas id="sucursalChart" aria-label="Gráfico de distribución por sucursal"></canvas>
+    </div>
+  </div>
+
+  <!-- ============================================ -->
+  <!-- TAB: CITAS -->
+  <!-- ============================================ -->
+  <div id="tabCitas" class="tab-content" role="tabpanel">
+    <h2 style="font-family:'Playfair Display',serif; margin-bottom:1.5rem; color:var(--text-secondary); font-weight:400; letter-spacing:-0.5px;">
+      <i class="fas fa-calendar-plus" style="color:var(--accent);"></i> Agendar cita
+    </h2>
+
+    <!-- Formulario de citas (Liquid Glass) -->
+    <form class="appointment-form" id="formCita" aria-label="Formulario de cita">
+      <!-- Selección de cliente -->
+      <div class="client-select-group full-width">
+        <div class="form-group" style="flex:2;">
+          <label for="clienteSelect"><i class="fas fa-user-check" aria-hidden="true"></i> Cliente</label>
+          <select id="clienteSelect">
+            <option value="">-- Seleccionar cliente existente --</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label>&nbsp;</label>
+          <button type="button" class="btn btn-secondary" id="toggleNewClientBtn"><i class="fas fa-user-plus"></i> Nuevo cliente</button>
+        </div>
+      </div>
+
+      <!-- Campos para cliente nuevo (ocultos por defecto) -->
+      <div class="new-client-fields" id="newClientFields">
+        <div class="form-group">
+          <label for="nuevoNombre"><i class="fas fa-user" aria-hidden="true"></i> Nombre completo *</label>
+          <input type="text" id="nuevoNombre" placeholder="Ej. Laura Gómez" />
+        </div>
+        <div class="form-group">
+          <label for="nuevoTelefono"><i class="fas fa-phone" aria-hidden="true"></i> Teléfono *</label>
+          <input type="tel" id="nuevoTelefono" placeholder="Ej. 5512345678" />
+        </div>
+        <div class="form-group">
+          <label for="nuevoEmail"><i class="fas fa-envelope" aria-hidden="true"></i> Email</label>
+          <input type="email" id="nuevoEmail" placeholder="cliente@email.com" />
+        </div>
+        <div class="form-group" style="grid-column:1/-1; font-size:0.8rem; color:var(--text-muted);">
+          <i class="fas fa-info-circle"></i> Al crear un nuevo cliente, se guardará automáticamente en el sistema.
+        </div>
+      </div>
+
+      <!-- Datos de la cita -->
+      <div class="form-group">
+        <label for="fechaCita"><i class="fas fa-calendar-day" aria-hidden="true"></i> Fecha *</label>
+        <input type="date" id="fechaCita" required />
+      </div>
+      <div class="form-group">
+        <label for="horaCita"><i class="fas fa-clock" aria-hidden="true"></i> Hora *</label>
+        <input type="time" id="horaCita" required />
+      </div>
+      <div class="form-group">
+        <label for="servicioCita"><i class="fas fa-scissors" aria-hidden="true"></i> Servicio *</label>
+        <select id="servicioCita">
+          <option value="Corte">Corte</option>
+          <option value="Color">Color</option>
+          <option value="Alisado">Alisado</option>
+          <option value="Tratamiento capilar">Tratamiento capilar</option>
+          <option value="Peinado">Peinado</option>
+          <option value="Maquillaje">Maquillaje</option>
+          <option value="Otro">Otro</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="sucursalCita"><i class="fas fa-store" aria-hidden="true"></i> Sucursal *</label>
+        <select id="sucursalCita">
+          <option value="Centro">Centro</option>
+          <option value="Norte">Norte</option>
+          <option value="Sur">Sur</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="estilistaAsignado"><i class="fas fa-user-tie" aria-hidden="true"></i> Estilista asignado</label>
+        <div class="estilista-badge" id="estilistaBadge">
+          <i class="fas fa-spinner fa-spin"></i> Selecciona sucursal
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="notasCita"><i class="fas fa-pen" aria-hidden="true"></i> Notas adicionales</label>
+        <input type="text" id="notasCita" placeholder="Ej. Cliente prefiere corte en capas" />
+      </div>
+      <div class="form-group full-width" style="display:flex; gap:12px; flex-wrap:wrap; align-items:center; justify-content:flex-end; border-top:1px solid var(--border-glass); padding-top:1.2rem; margin-top:0.5rem;">
+        <button type="button" class="btn btn-primary" id="agendarCitaBtn"><i class="fas fa-calendar-check"></i> Agendar cita</button>
+        <button type="button" class="btn btn-secondary" id="limpiarCitaBtn"><i class="fas fa-undo-alt"></i> Limpiar</button>
+      </div>
+    </form>
+
+    <!-- Lista de citas -->
+    <div class="appointments-list">
+      <h3 style="font-family:'Playfair Display',serif; font-weight:400; margin-bottom:1rem; color:var(--text-secondary); letter-spacing:-0.3px;">
+        <i class="fas fa-list-ul" style="color:var(--accent);"></i> Citas agendadas
+      </h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Cliente</th>
+              <th>Teléfono</th>
+              <th>Servicio</th>
+              <th>Fecha</th>
+              <th>Hora</th>
+              <th>Sucursal</th>
+              <th>Estilista</th>
+              <th>Estado</th>
+              <th style="text-align:center;">Acción</th>
+            </tr>
+          </thead>
+          <tbody id="tablaBodyCitas">
+            <tr><td colspan="9" class="empty-message"><i class="fas fa-calendar-times" aria-hidden="true"></i> No hay citas agendadas</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Paginación citas -->
+      <div class="pagination" id="paginationCitas">
+        <button id="prevPageCitas" disabled><i class="fas fa-chevron-left"></i> Anterior</button>
+        <span class="page-info" id="pageInfoCitas">Página 1 de 1</span>
+        <button id="nextPageCitas" disabled>Siguiente <i class="fas fa-chevron-right"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    'use strict';
+
+    // ============================================================
+    // 1. ESTADO GLOBAL
+    // ============================================================
+    let clientes = [];
+    let citas = [];
+    let currentPageClientes = 1;
+    let currentPageCitas = 1;
+    const pageSize = 10;
+    let sortCol = 'nombre';
+    let sortAsc = true;
+    let searchTerm = '';
+    let editingIndex = -1;
+
+    // ============================================================
+    // 2. REFERENCIAS DOM
+    // ============================================================
+    // Clientes
+    const tbodyClientes = document.getElementById('tablaBodyClientes');
+    const clientCount = document.getElementById('clientCount');
+    const totalClientesEl = document.getElementById('totalClientes');
+    const promEdadEl = document.getElementById('promEdad');
+    const totalIngresosEl = document.getElementById('totalIngresos');
+
+    const nombre = document.getElementById('nombre');
+    const edad = document.getElementById('edad');
+    const servicio = document.getElementById('servicio');
+    const fechaInicio = document.getElementById('fechaInicio');
+    const membresia = document.getElementById('membresia');
+    const tipoPago = document.getElementById('tipoPago');
+    const sucursalCliente = document.getElementById('sucursalCliente');
+    const frecuencia = document.getElementById('frecuencia');
+    const promociones = document.getElementById('promociones');
+    const referido = document.getElementById('referido');
+    const monto = document.getElementById('monto');
+
+    const agregarBtn = document.getElementById('agregarBtn');
+    const limpiarBtn = document.getElementById('limpiarBtn');
+    const resetBtn = document.getElementById('resetEjemploBtn');
+    const searchInput = document.getElementById('searchInput');
+    const exportBtn = document.getElementById('exportCsvBtn');
+
+    const prevPageClientesBtn = document.getElementById('prevPageClientes');
+    const nextPageClientesBtn = document.getElementById('nextPageClientes');
+    const pageInfoClientes = document.getElementById('pageInfoClientes');
+
+    // Citas
+    const tbodyCitas = document.getElementById('tablaBodyCitas');
+    const appointmentCount = document.getElementById('appointmentCount');
+    const clienteSelect = document.getElementById('clienteSelect');
+    const toggleNewClientBtn = document.getElementById('toggleNewClientBtn');
+    const newClientFields = document.getElementById('newClientFields');
+    const nuevoNombre = document.getElementById('nuevoNombre');
+    const nuevoTelefono = document.getElementById('nuevoTelefono');
+    const nuevoEmail = document.getElementById('nuevoEmail');
+    const fechaCita = document.getElementById('fechaCita');
+    const horaCita = document.getElementById('horaCita');
+    const servicioCita = document.getElementById('servicioCita');
+    const sucursalCita = document.getElementById('sucursalCita');
+    const estilistaBadge = document.getElementById('estilistaBadge');
+    const notasCita = document.getElementById('notasCita');
+    const agendarCitaBtn = document.getElementById('agendarCitaBtn');
+    const limpiarCitaBtn = document.getElementById('limpiarCitaBtn');
+    const prevPageCitasBtn = document.getElementById('prevPageCitas');
+    const nextPageCitasBtn = document.getElementById('nextPageCitas');
+    const pageInfoCitas = document.getElementById('pageInfoCitas');
+
+    // Tabs
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabClientes = document.getElementById('tabClientes');
+    const tabCitas = document.getElementById('tabCitas');
+
+    // Toast
+    const toast = document.getElementById('toast');
+
+    // Theme
+    const themeToggle = document.getElementById('themeToggle');
+
+    // ============================================================
+    // 3. FUNCIONES AUXILIARES
+    // ============================================================
+    function escapeHTML(str) {
+      if (!str) return '';
+      return String(str).replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[m] || m);
+    }
+
+    function formatCurrency(amount) {
+      return '$' + Number(amount).toFixed(2);
+    }
+
+    function showToast(message, isError = false) {
+      toast.textContent = message;
+      toast.style.background = isError ? '#b15a4a' : 'var(--toast-bg)';
+      toast.style.color = isError ? '#fff' : 'var(--toast-text)';
+      toast.classList.add('show');
+      clearTimeout(toast._timer);
+      toast._timer = setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function validarFecha(fecha) {
+      if (!fecha) return true;
+      const hoy = new Date();
+      hoy.setHours(0,0,0,0);
+      const sel = new Date(fecha);
+      return sel >= hoy;
+    }
+
+    function generarId() {
+      return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    }
+
+    function formatearTelefono(telefono) {
+      let tel = telefono.replace(/\s/g, '').replace(/-/g, '').replace(/[()]/g, '');
+      if (!tel.startsWith('+')) {
+        if (tel.startsWith('52')) tel = '+' + tel;
+        else tel = '+52' + tel;
+      }
+      return tel;
+    }
+
+    // ============================================================
+    // 4. PERSISTENCIA
+    // ============================================================
+    function loadFromStorage() {
+      const storedClientes = localStorage.getItem('clientes');
+      if (storedClientes) {
+        try { clientes = JSON.parse(storedClientes); } catch(e) { clientes = []; }
+      } else {
+        clientes = getEjemplos();
+      }
+      const storedCitas = localStorage.getItem('citas');
+      if (storedCitas) {
+        try { citas = JSON.parse(storedCitas); } catch(e) { citas = []; }
+      } else {
+        citas = [];
+      }
+    }
+
+    function saveToStorage() {
+      localStorage.setItem('clientes', JSON.stringify(clientes));
+      localStorage.setItem('citas', JSON.stringify(citas));
+    }
+
+    function getEjemplos() {
+      return [
+        { nombre: 'Valentina Díaz', edad: 29, servicio: 'Corte + balayage', fechaInicio: '2024-02-10', membresia: 'miembro actual', tipoPago: 'Tarjeta débito', sucursal: 'Centro', frecuencia: 'Mensual', promociones: 'Sí, aprovechó', referido: 'Sofía M.', monto: 1500 },
+        { nombre: 'Mateo Herrera', edad: 42, servicio: 'Tratamiento capilar', fechaInicio: '2023-08-22', membresia: 'fue miembro anteriormente', tipoPago: 'Efectivo', sucursal: 'Norte', frecuencia: 'Esporádico', promociones: 'No ha utilizado', referido: 'Ninguno', monto: 800 },
+        { nombre: 'Camila Ríos', edad: 34, servicio: 'Alisado + corte', fechaInicio: '2025-01-15', membresia: 'miembro actual', tipoPago: 'Mercado Pago', sucursal: 'Sur', frecuencia: 'Quincenal', promociones: 'Sí, aprovechó', referido: 'Lucas P.', monto: 2200 },
+        { nombre: 'Uziel Villafranca', edad: 21, servicio: 'Corte clásico', fechaInicio: '2026-06-25', membresia: 'fue miembro anteriormente', tipoPago: 'Tarjeta crédito', sucursal: 'Sur', frecuencia: 'Mensual', promociones: 'No ha utilizado', referido: 'Ninguno', monto: 600 }
+      ];
+    }
+
+    // ============================================================
+    // 5. ESTILISTAS POR SUCURSAL
+    // ============================================================
+    const estilistas = {
+      'Centro': 'María González',
+      'Norte': 'Juan Pérez',
+      'Sur': 'Ana Martínez'
+    };
+
+    function actualizarEstilista() {
+      const suc = sucursalCita.value;
+      const nombre = estilistas[suc] || 'No asignado';
+      estilistaBadge.innerHTML = `<i class="fas fa-user-tie"></i> ${nombre}`;
+    }
+
+    // ============================================================
+    // 6. RENDERIZADO DE CLIENTES
+    // ============================================================
+    function getFilteredAndSortedClientes() {
+      let list = clientes.slice();
+      if (searchTerm.trim()) {
+        const term = searchTerm.trim().toLowerCase();
+        list = list.filter(c =>
+          c.nombre.toLowerCase().includes(term) ||
+          c.servicio.toLowerCase().includes(term) ||
+          c.sucursal.toLowerCase().includes(term)
+        );
+      }
+      list.sort((a, b) => {
+        let va = a[sortCol] ?? '';
+        let vb = b[sortCol] ?? '';
+        if (typeof va === 'string') va = va.toLowerCase();
+        if (typeof vb === 'string') vb = vb.toLowerCase();
+        if (va < vb) return sortAsc ? -1 : 1;
+        if (va > vb) return sortAsc ? 1 : -1;
+        return 0;
+      });
+      return list;
+    }
+
+    function renderClientes() {
+      const filtered = getFilteredAndSortedClientes();
+      const total = filtered.length;
+      const totalPages = Math.ceil(total / pageSize) || 1;
+      if (currentPageClientes > totalPages) currentPageClientes = totalPages;
+      if (currentPageClientes < 1) currentPageClientes = 1;
+      const start = (currentPageClientes - 1) * pageSize;
+      const end = Math.min(start + pageSize, total);
+      const pageItems = filtered.slice(start, end);
+
+      clientCount.textContent = clientes.length;
+      totalClientesEl.textContent = clientes.length;
+      const edades = clientes.map(c => c.edad).filter(e => !isNaN(e));
+      const prom = edades.length ? Math.round(edades.reduce((a,b) => a+b, 0) / edades.length) : 0;
+      promEdadEl.textContent = prom;
+      const totalMonto = clientes.reduce((sum, c) => sum + (parseFloat(c.monto) || 0), 0);
+      totalIngresosEl.textContent = formatCurrency(totalMonto);
+
+      pageInfoClientes.textContent = `Página ${currentPageClientes} de ${totalPages}`;
+      prevPageClientesBtn.disabled = currentPageClientes <= 1;
+      nextPageClientesBtn.disabled = currentPageClientes >= totalPages;
+
+      if (pageItems.length === 0) {
+        tbodyClientes.innerHTML = `<tr><td colspan="12" class="empty-message"><i class="fas fa-spa" aria-hidden="true"></i> No hay clientes</td></tr>`;
+        updateChart();
+        return;
+      }
+
+      let html = '';
+      pageItems.forEach((c, idx) => {
+        const realIndex = clientes.indexOf(c);
+        const membresiaClass = c.membresia === 'miembro actual' ? 'miembro-actual' : 'ex-miembro';
+        const promoClass = c.promociones === 'Sí, aprovechó' ? 'promo-yes' : 'promo-no';
+        html += `<tr class="fade-row">
+          <td><strong>${escapeHTML(c.nombre)}</strong></td>
+          <td>${c.edad}</td>
+          <td>${escapeHTML(c.servicio)}</td>
+          <td>${c.fechaInicio || '—'}</td>
+          <td><span class="badge ${membresiaClass}">${c.membresia}</span></td>
+          <td>${c.tipoPago}</td>
+          <td><i class="fas fa-store-alt" style="color:var(--accent); margin-right:4px;"></i> ${c.sucursal}</td>
+          <td>${c.frecuencia}</td>
+          <td><span class="badge ${promoClass}">${c.promociones}</span></td>
+          <td>${escapeHTML(c.referido) || '—'}</td>
+          <td>${c.monto ? formatCurrency(c.monto) : '—'}</td>
+          <td style="text-align:center;">
+            <div class="acciones">
+              <button class="editarClienteBtn" data-index="${realIndex}" aria-label="Editar cliente"><i class="fas fa-edit"></i></button>
+              <button class="eliminarClienteBtn" data-index="${realIndex}" aria-label="Eliminar cliente"><i class="fas fa-trash-alt"></i></button>
+            </div>
+          </td>
+        </tr>`;
+      });
+      tbodyClientes.innerHTML = html;
+      updateChart();
+    }
+
+    // ============================================================
+    // 7. RENDERIZADO DE CITAS
+    // ============================================================
+    function renderCitas() {
+      const total = citas.length;
+      const totalPages = Math.ceil(total / pageSize) || 1;
+      if (currentPageCitas > totalPages) currentPageCitas = totalPages;
+      if (currentPageCitas < 1) currentPageCitas = 1;
+      const start = (currentPageCitas - 1) * pageSize;
+      const end = Math.min(start + pageSize, total);
+      const pageItems = citas.slice(start, end);
+
+      appointmentCount.textContent = citas.length;
+
+      pageInfoCitas.textContent = `Página ${currentPageCitas} de ${totalPages}`;
+      prevPageCitasBtn.disabled = currentPageCitas <= 1;
+      nextPageCitasBtn.disabled = currentPageCitas >= totalPages;
+
+      if (pageItems.length === 0) {
+        tbodyCitas.innerHTML = `<tr><td colspan="9" class="empty-message"><i class="fas fa-calendar-times" aria-hidden="true"></i> No hay citas agendadas</td></tr>`;
+        return;
+      }
+
+      let html = '';
+      pageItems.forEach((c, idx) => {
+        const realIndex = citas.indexOf(c);
+        const estadoClass = c.estado === 'Pendiente' ? 'estado-pendiente' : c.estado === 'Realizada' ? 'estado-realizada' : 'estado-cancelada';
+        html += `<tr class="fade-row">
+          <td><strong>${escapeHTML(c.clienteNombre)}</strong></td>
+          <td>${c.telefono || '—'}</td>
+          <td>${escapeHTML(c.servicio)}</td>
+          <td>${c.fecha}</td>
+          <td>${c.hora}</td>
+          <td><i class="fas fa-store-alt" style="color:var(--accent); margin-right:4px;"></i> ${c.sucursal}</td>
+          <td>${c.estilista}</td>
+          <td><span class="badge ${estadoClass}">${c.estado}</span></td>
+          <td style="text-align:center;">
+            <div class="acciones">
+              <button class="cancelarCitaBtn" data-index="${realIndex}" aria-label="Cancelar cita"><i class="fas fa-times-circle"></i></button>
+              <button class="whatsappCitaBtn" data-index="${realIndex}" aria-label="Enviar WhatsApp"><i class="fab fa-whatsapp"></i></button>
+            </div>
+          </td>
+        </tr>`;
+      });
+      tbodyCitas.innerHTML = html;
+    }
+
+    // ============================================================
+    // 8. GRÁFICO
+    // ============================================================
+    let chartInstance = null;
+
+    function updateChart() {
+      const ctx = document.getElementById('sucursalChart').getContext('2d');
+      const counts = { Centro: 0, Norte: 0, Sur: 0 };
+      clientes.forEach(c => { if (counts[c.sucursal] !== undefined) counts[c.sucursal]++; });
+      const labels = Object.keys(counts);
+      const data = Object.values(counts);
+
+      if (chartInstance) chartInstance.destroy();
+
+      chartInstance = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'Clientes por sucursal',
+            data: data,
+            backgroundColor: ['#4a4a4a', '#6a6a6a', '#8a8a8a'],
+            borderRadius: 8,
+            barPercentage: 0.6
+          }]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: true,
+          plugins: {
+            legend: { display: false },
+          },
+          scales: {
+            y: { beginAtZero: true, ticks: { stepSize: 1, color: 'var(--text-muted)' } },
+            x: { ticks: { color: 'var(--text-muted)' } }
+          }
+        }
+      });
+    }
+
+    // ============================================================
+    // 9. CRUD CLIENTES
+    // ============================================================
+    function agregarCliente() {
+      const nom = nombre.value.trim();
+      const ed = edad.value.trim();
+      const serv = servicio.value.trim();
+      const fecha = fechaInicio.value;
+      const mont = parseFloat(monto.value) || 0;
+
+      if (!nom) { showToast('Ingresa el nombre completo.', true); nombre.focus(); return; }
+      if (!ed || isNaN(ed) || parseInt(ed) < 1 || parseInt(ed) > 120) { showToast('Edad válida (1-120).', true); edad.focus(); return; }
+      if (!serv) { showToast('Describe el servicio.', true); servicio.focus(); return; }
+
+      const nuevo = {
+        nombre: nom,
+        edad: parseInt(ed),
+        servicio: serv,
+        fechaInicio: fecha || '—',
+        membresia: membresia.value,
+        tipoPago: tipoPago.value,
+        sucursal: sucursalCliente.value,
+        frecuencia: frecuencia.value,
+        promociones: promociones.value,
+        referido: referido.value.trim() || 'Ninguno',
+        monto: mont
+      };
+
+      if (editingIndex >= 0) {
+        clientes[editingIndex] = nuevo;
+        editingIndex = -1;
+        agregarBtn.querySelector('span').textContent = 'Agregar';
+        showToast('Cliente actualizado.');
+      } else {
+        clientes.push(nuevo);
+        showToast('Cliente agregado.');
+      }
+      saveToStorage();
+      limpiarCampos();
+      renderClientes();
+      actualizarSelectClientes();
+      nombre.focus();
+    }
+
+    function eliminarCliente(index) {
+      if (index < 0 || index >= clientes.length) return;
+      const nombreCliente = clientes[index].nombre;
+      if (!confirm(`¿Eliminar a "${nombreCliente}"?`)) return;
+      clientes.splice(index, 1);
+      saveToStorage();
+      renderClientes();
+      actualizarSelectClientes();
+      showToast(`Cliente "${nombreCliente}" eliminado.`);
+    }
+
+    function editarCliente(index) {
+      if (index < 0 || index >= clientes.length) return;
+      const c = clientes[index];
+      nombre.value = c.nombre;
+      edad.value = c.edad;
+      servicio.value = c.servicio;
+      fechaInicio.value = c.fechaInicio === '—' ? '' : c.fechaInicio;
+      membresia.value = c.membresia;
+      tipoPago.value = c.tipoPago;
+      sucursalCliente.value = c.sucursal;
+      frecuencia.value = c.frecuencia;
+      promociones.value = c.promociones;
+      referido.value = c.referido === 'Ninguno' ? '' : c.referido;
+      monto.value = c.monto || '';
+      editingIndex = index;
+      agregarBtn.querySelector('span').textContent = 'Actualizar';
+      showToast('Editando cliente. Modifica y presiona Actualizar.');
+      nombre.focus();
+    }
+
+    function limpiarCampos() {
+      nombre.value = ''; edad.value = ''; servicio.value = ''; fechaInicio.value = '';
+      membresia.value = 'miembro actual'; tipoPago.value = 'Efectivo'; sucursalCliente.value = 'Centro';
+      frecuencia.value = 'Semanal'; promociones.value = 'Sí, aprovechó'; referido.value = '';
+      monto.value = '';
+      editingIndex = -1;
+      agregarBtn.querySelector('span').textContent = 'Agregar';
+      nombre.focus();
+    }
+
+    function cargarEjemplos() {
+      if (clientes.length > 0 && !confirm('Reemplazar todos los clientes por los ejemplos?')) return;
+      clientes = getEjemplos();
+      saveToStorage();
+      currentPageClientes = 1;
+      renderClientes();
+      actualizarSelectClientes();
+      showToast('Ejemplos cargados.');
+    }
+
+    // ============================================================
+    // 10. CITAS
+    // ============================================================
+    function actualizarSelectClientes() {
+      const select = clienteSelect;
+      const currentVal = select.value;
+      select.innerHTML = '<option value="">-- Seleccionar cliente existente --</option>';
+      clientes.forEach(c => {
+        const opt = document.createElement('option');
+        opt.value = c.nombre;
+        opt.textContent = `${c.nombre} (${c.sucursal})`;
+        if (c.nombre === currentVal) opt.selected = true;
+        select.appendChild(opt);
+      });
+    }
+
+    function toggleNewClient() {
+      const isVisible = newClientFields.classList.toggle('visible');
+      toggleNewClientBtn.innerHTML = isVisible ? '<i class="fas fa-user-check"></i> Usar existente' : '<i class="fas fa-user-plus"></i> Nuevo cliente';
+      if (!isVisible) {
+        nuevoNombre.value = '';
+        nuevoTelefono.value = '';
+        nuevoEmail.value = '';
+      }
+    }
+
+    function obtenerClienteCita() {
+      const selected = clienteSelect.value;
+      if (selected) {
+        const cliente = clientes.find(c => c.nombre === selected);
+        if (cliente) {
+          if (!cliente.telefono) {
+            const tel = prompt(`Ingresa el número de teléfono para "${cliente.nombre}":`);
+            if (tel && tel.trim()) {
+              cliente.telefono = tel.trim();
+              saveToStorage();
+            } else {
+              showToast('El número de teléfono es obligatorio.', true);
+              return null;
+            }
+          }
+          return { nombre: cliente.nombre, telefono: cliente.telefono || '', email: cliente.email || '' };
+        }
+      }
+
+      if (newClientFields.classList.contains('visible')) {
+        const nom = nuevoNombre.value.trim();
+        const tel = nuevoTelefono.value.trim();
+        const email = nuevoEmail.value.trim();
+        if (!nom || !tel) {
+          showToast('Para cliente nuevo, completa nombre y teléfono.', true);
+          return null;
+        }
+        const nuevoCliente = {
+          nombre: nom,
+          edad: 0,
+          servicio: 'Nuevo',
+          fechaInicio: new Date().toISOString().split('T')[0],
+          membresia: 'miembro actual',
+          tipoPago: 'Efectivo',
+          sucursal: sucursalCita.value,
+          frecuencia: 'Esporádico',
+          promociones: 'No ha utilizado',
+          referido: 'Ninguno',
+          monto: 0,
+          telefono: tel,
+          email: email || ''
+        };
+        clientes.push(nuevoCliente);
+        saveToStorage();
+        renderClientes();
+        actualizarSelectClientes();
+        showToast(`Cliente "${nom}" registrado automáticamente.`);
+        return { nombre: nom, telefono: tel, email: email || '' };
+      }
+
+      showToast('Selecciona un cliente o crea uno nuevo.', true);
+      return null;
+    }
+
+    function enviarWhatsAppMensaje(telefono, clienteNombre, fecha, hora, servicio, sucursal, estilista, notas) {
+      const telefonoForm = formatearTelefono(telefono);
+      const mensaje = `Hola ${clienteNombre}, te confirmamos tu cita en *Seda & Tijera*:
+
+📅 *Fecha:* ${fecha}
+⏰ *Hora:* ${hora}
+✂️ *Servicio:* ${servicio}
+📍 *Sucursal:* ${sucursal}
+👤 *Estilista:* ${estilista}
+${notas ? '📝 *Notas:* ' + notas : ''}
+
+¡Te esperamos! 🌟`;
+
+      const url = `https://wa.me/${telefonoForm}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+
+    function agendarCita() {
+      const clienteData = obtenerClienteCita();
+      if (!clienteData) return;
+
+      const fecha = fechaCita.value;
+      const hora = horaCita.value;
+      const servicio = servicioCita.value;
+      const sucursal = sucursalCita.value;
+      const notas = notasCita.value.trim();
+
+      if (!fecha || !hora) {
+        showToast('Fecha y hora son obligatorias.', true);
+        return;
+      }
+      if (!validarFecha(fecha)) {
+        showToast('La fecha no puede ser en el pasado.', true);
+        return;
+      }
+
+      const estilista = estilistas[sucursal] || 'No asignado';
+
+      const nuevaCita = {
+        id: generarId(),
+        clienteNombre: clienteData.nombre,
+        telefono: clienteData.telefono,
+        email: clienteData.email || '',
+        servicio: servicio,
+        fecha: fecha,
+        hora: hora,
+        sucursal: sucursal,
+        estilista: estilista,
+        notas: notas,
+        estado: 'Pendiente'
+      };
+
+      citas.push(nuevaCita);
+      saveToStorage();
+      renderCitas();
+
+      enviarWhatsAppMensaje(
+        clienteData.telefono,
+        clienteData.nombre,
+        fecha,
+        hora,
+        servicio,
+        sucursal,
+        estilista,
+        notas
+      );
+
+      limpiarCita();
+      showToast(`Cita agendada para ${clienteData.nombre}. Mensaje enviado por WhatsApp.`);
+    }
+
+    function cancelarCita(index) {
+      if (index < 0 || index >= citas.length) return;
+      if (!confirm('¿Cancelar esta cita?')) return;
+      citas[index].estado = 'Cancelada';
+      saveToStorage();
+      renderCitas();
+      showToast('Cita cancelada.');
+    }
+
+    function enviarWhatsAppCita(index) {
+      if (index < 0 || index >= citas.length) return;
+      const c = citas[index];
+      if (!c.telefono) {
+        showToast('El cliente no tiene número de teléfono registrado.', true);
+        return;
+      }
+      enviarWhatsAppMensaje(
+        c.telefono,
+        c.clienteNombre,
+        c.fecha,
+        c.hora,
+        c.servicio,
+        c.sucursal,
+        c.estilista,
+        c.notas
+      );
+      showToast('Abriendo WhatsApp...');
+    }
+
+    function limpiarCita() {
+      clienteSelect.value = '';
+      nuevoNombre.value = '';
+      nuevoTelefono.value = '';
+      nuevoEmail.value = '';
+      fechaCita.value = '';
+      horaCita.value = '';
+      servicioCita.value = 'Corte';
+      sucursalCita.value = 'Centro';
+      notasCita.value = '';
+      if (newClientFields.classList.contains('visible')) toggleNewClient();
+      actualizarEstilista();
+    }
+
+    // ============================================================
+    // 11. ORDENAMIENTO, BÚSQUEDA, PAGINACIÓN
+    // ============================================================
+    function setSort(col) {
+      if (sortCol === col) sortAsc = !sortAsc;
+      else { sortCol = col; sortAsc = true; }
+      renderClientes();
+    }
+
+    function applySearch() {
+      searchTerm = searchInput.value;
+      currentPageClientes = 1;
+      renderClientes();
+    }
+
+    function goToPageClientes(page) {
+      const filtered = getFilteredAndSortedClientes();
+      const totalPages = Math.ceil(filtered.length / pageSize) || 1;
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPageClientes = page;
+      renderClientes();
+    }
+
+    function goToPageCitas(page) {
+      const totalPages = Math.ceil(citas.length / pageSize) || 1;
+      if (page < 1) page = 1;
+      if (page > totalPages) page = totalPages;
+      currentPageCitas = page;
+      renderCitas();
+    }
+
+    // ============================================================
+    // 12. EXPORTAR CSV
+    // ============================================================
+    function exportCSV() {
+      if (clientes.length === 0) { showToast('No hay datos para exportar.', true); return; }
+      const headers = ['Nombre', 'Edad', 'Servicio', 'Desde', 'Membresía', 'Pago', 'Sucursal', 'Frecuencia', 'Promo', 'Referido', 'Monto'];
+      const rows = clientes.map(c => [
+        c.nombre, c.edad, c.servicio, c.fechaInicio, c.membresia, c.tipoPago,
+        c.sucursal, c.frecuencia, c.promociones, c.referido, c.monto || 0
+      ]);
+      let csv = headers.join(',') + '\n';
+      rows.forEach(row => {
+        csv += row.map(val => `"${String(val).replace(/"/g, '""')}"`).join(',') + '\n';
+      });
+      const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+      const link = document.createElement('a');
+      link.href = URL.createObjectURL(blob);
+      link.download = 'clientes_seda_tijera.csv';
+      link.click();
+      URL.revokeObjectURL(link.href);
+      showToast('CSV exportado.');
+    }
+
+    // ============================================================
+    // 13. MODO OSCURO
+    // ============================================================
+    function toggleTheme() {
+      const current = document.documentElement.getAttribute('data-theme');
+      const newTheme = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      const icon = themeToggle.querySelector('i');
+      const span = themeToggle.querySelector('span');
+      if (newTheme === 'dark') {
+        icon.className = 'fas fa-sun';
+        span.textContent = 'Modo claro';
+      } else {
+        icon.className = 'fas fa-moon';
+        span.textContent = 'Modo oscuro';
+      }
+    }
+
+    function loadTheme() {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'dark') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+        const icon = themeToggle.querySelector('i');
+        const span = themeToggle.querySelector('span');
+        icon.className = 'fas fa-sun';
+        span.textContent = 'Modo claro';
+      }
+    }
+
+    // ============================================================
+    // 14. TABS
+    // ============================================================
+    function switchTab(tabId) {
+      tabBtns.forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      const btn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+      if (btn) btn.classList.add('active');
+      const content = document.getElementById(`tab${tabId.charAt(0).toUpperCase() + tabId.slice(1)}`);
+      if (content) content.classList.add('active');
+      if (tabId === 'citas') {
+        actualizarSelectClientes();
+        actualizarEstilista();
+      }
+    }
+
+    // ============================================================
+    // 15. DELEGACIÓN DE EVENTOS
+    // ============================================================
+    function setupDelegation() {
+      // Clientes
+      tbodyClientes.addEventListener('click', function(e) {
+        const target = e.target.closest('button');
+        if (!target) return;
+        const indexAttr = target.getAttribute('data-index');
+        if (indexAttr === null) return;
+        const index = parseInt(indexAttr, 10);
+        if (isNaN(index)) return;
+
+        if (target.classList.contains('eliminarClienteBtn')) {
+          eliminarCliente(index);
+        } else if (target.classList.contains('editarClienteBtn')) {
+          editarCliente(index);
+        }
+      });
+
+      // Citas
+      tbodyCitas.addEventListener('click', function(e) {
+        const target = e.target.closest('button');
+        if (!target) return;
+        const indexAttr = target.getAttribute('data-index');
+        if (indexAttr === null) return;
+        const index = parseInt(indexAttr, 10);
+        if (isNaN(index)) return;
+
+        if (target.classList.contains('cancelarCitaBtn')) {
+          cancelarCita(index);
+        } else if (target.classList.contains('whatsappCitaBtn')) {
+          enviarWhatsAppCita(index);
+        }
+      });
+
+      // Ordenamiento
+      document.querySelectorAll('#tabClientes th[data-col]').forEach(th => {
+        th.addEventListener('click', function() {
+          const col = this.getAttribute('data-col');
+          setSort(col);
+        });
+      });
+
+      // Búsqueda
+      let searchTimer;
+      searchInput.addEventListener('input', function() {
+        clearTimeout(searchTimer);
+        searchTimer = setTimeout(applySearch, 300);
+      });
+
+      // Paginación clientes
+      prevPageClientesBtn.addEventListener('click', () => goToPageClientes(currentPageClientes - 1));
+      nextPageClientesBtn.addEventListener('click', () => goToPageClientes(currentPageClientes + 1));
+
+      // Paginación citas
+      prevPageCitasBtn.addEventListener('click', () => goToPageCitas(currentPageCitas - 1));
+      nextPageCitasBtn.addEventListener('click', () => goToPageCitas(currentPageCitas + 1));
+
+      // Botones clientes
+      agregarBtn.addEventListener('click', agregarCliente);
+      limpiarBtn.addEventListener('click', limpiarCampos);
+      resetBtn.addEventListener('click', cargarEjemplos);
+      exportBtn.addEventListener('click', exportCSV);
+
+      // Botones citas
+      agendarCitaBtn.addEventListener('click', agendarCita);
+      limpiarCitaBtn.addEventListener('click', limpiarCita);
+      toggleNewClientBtn.addEventListener('click', toggleNewClient);
+      sucursalCita.addEventListener('change', actualizarEstilista);
+
+      // Atajo Ctrl+Enter
+      document.addEventListener('keydown', function(e) {
+        if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+          e.preventDefault();
+          const activeTab = document.querySelector('.tab-content.active');
+          if (activeTab && activeTab.id === 'tabClientes') {
+            agregarCliente();
+          } else if (activeTab && activeTab.id === 'tabCitas') {
+            agendarCita();
+          }
+        }
+      });
+
+      // Enter en campos de formularios
+      document.querySelectorAll('#formularioClientes input, #formularioClientes select').forEach(el => {
+        el.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); agregarCliente(); }
+        });
+      });
+      document.querySelectorAll('#formCita input, #formCita select').forEach(el => {
+        el.addEventListener('keypress', function(e) {
+          if (e.key === 'Enter') { e.preventDefault(); agendarCita(); }
+        });
+      });
+
+      // Tabs
+      tabBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+          const tab = this.getAttribute('data-tab');
+          switchTab(tab);
+        });
+      });
+
+      // Tema
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // ============================================================
+    // 16. INICIALIZACIÓN
+    // ============================================================
+    loadFromStorage();
+    loadTheme();
+    renderClientes();
+    renderCitas();
+    actualizarSelectClientes();
+    actualizarEstilista();
+    setupDelegation();
+
+    // Enfocar nombre al cargar
+    nombre.focus();
+
+  })();
+</script>
+</body>
+</html>
